@@ -71,7 +71,7 @@ int main() {
 			fin.close();
 			break;
 		}
-		case 2:
+		case 2: {
 			ofstream fout("FILE10_2.txt");
 			char str[256];
 			cin.ignore(cin.rdbuf()->in_avail());
@@ -91,6 +91,8 @@ int main() {
 				}
 			}
 			fin.close();
+			break;
+		}
 		}
 		break;
 	}
