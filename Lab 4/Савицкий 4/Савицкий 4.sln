@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dop2", "..\dop2\dop2.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nevar", "..\nevar\nevar.vcxproj", "{FBB60E67-DA25-4A27-B5A9-FE6AA1D99B3F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dop3", "..\dop3\dop3.vcxproj", "{6AA56181-F16E-45AC-ABAC-70EB66B9AAF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{FBB60E67-DA25-4A27-B5A9-FE6AA1D99B3F}.Release|x64.Build.0 = Release|x64
 		{FBB60E67-DA25-4A27-B5A9-FE6AA1D99B3F}.Release|x86.ActiveCfg = Release|Win32
 		{FBB60E67-DA25-4A27-B5A9-FE6AA1D99B3F}.Release|x86.Build.0 = Release|Win32
+		{6AA56181-F16E-45AC-ABAC-70EB66B9AAF4}.Debug|x64.ActiveCfg = Debug|x64
+		{6AA56181-F16E-45AC-ABAC-70EB66B9AAF4}.Debug|x64.Build.0 = Debug|x64
+		{6AA56181-F16E-45AC-ABAC-70EB66B9AAF4}.Debug|x86.ActiveCfg = Debug|Win32
+		{6AA56181-F16E-45AC-ABAC-70EB66B9AAF4}.Debug|x86.Build.0 = Debug|Win32
+		{6AA56181-F16E-45AC-ABAC-70EB66B9AAF4}.Release|x64.ActiveCfg = Release|x64
+		{6AA56181-F16E-45AC-ABAC-70EB66B9AAF4}.Release|x64.Build.0 = Release|x64
+		{6AA56181-F16E-45AC-ABAC-70EB66B9AAF4}.Release|x86.ActiveCfg = Release|Win32
+		{6AA56181-F16E-45AC-ABAC-70EB66B9AAF4}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

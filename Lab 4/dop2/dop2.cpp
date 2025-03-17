@@ -1,58 +1,75 @@
 ﻿#include <iostream>
 #include <iomanip>
-#include <string>
-#include <algorithm>
+#define N 8
 using namespace std;
 
-struct Train {
-    string destination;
-    int trainNumber;
-    string departureTime;
+struct TRAIN {
+	char where[20];
+	int nomer;
+	int when;
+	char whenTime[20];
 };
 
-bool compareTrainsByDestination(const Train& a, const Train& b) {
-    return a.destination < b.destination;
+bool compStr(char a[], char b[]) {
+	int i=0;
+	for (; a[i] != '\0' && b[i] != '\0'; i++) {
+		if (tolower(a[i]) < tolower(b[i])) {
+			return true;
+		}
+		if (tolower(a[i]) > tolower(b[i])) {
+			return false;
+		}
+	}
+	if (a[i] == '\0') {
+		return true;
+	}
+	return false;
+}
+void sortTrain(TRAIN all[]) {
+	for (int i = 0; i < N; i++) {
+		for (int j = i; j < N; j++) {
+			if (!compStr(all[i].where, all[j].where)) {
+				TRAIN temp = all[i];
+				all[i] = all[j];
+				all[j] = temp;
+			}
+		}
+	}
 }
 
 int main() {
-    int size = 8;
-    Train* trains = new Train[size];
-
-    for (int i = 0; i < size; i++) {
-        cout << "\nВведите пункт назначения поезда " << i + 1 << ": ";
-        getline(cin, trains[i].destination);
-        cout << "Введите номер поезда: ";
-        cin >> trains[i].trainNumber;
-        cin.ignore();
-        cout << "Введите время отправления (в формате HH:MM): ";
-        getline(cin, trains[i].departureTime);
-    }
-
-    sort(trains, trains + size, compareTrainsByDestination);
-
-    cout << setw(30) << "Пункт назначения" << setw(10) << "Номер поезда" << setw(10) << "Время отправления" << endl;
-
-    for (int i = 0; i < size; i++) {
-        cout << setw(30) << trains[i].destination << setw(10) << trains[i].trainNumber << setw(10) << trains[i].departureTime << endl;
-    }
-
-    string inputTime;
-    cout << "\nВведите время для поиска поездов, отправляющихся позже этого времени (в формате HH:MM): ";
-    getline(cin, inputTime);
-
-    bool found = false;
-    for (int i = 0; i < size; i++) {
-        if (trains[i].departureTime > inputTime) {
-            cout << setw(30) << trains[i].destination << setw(10) << trains[i].trainNumber << setw(10) << trains[i].departureTime << endl;
-            found = true;
-        }
-    }
-
-    if (!found) {
-        cout << "Поездов, отправляющихся после указанного времени, не найдено." << endl;
-    }
-
-    delete[] trains;
-
-    return 0;
+	TRAIN all[N];
+	for (int i = 0; i < N; i++) {
+		cin >> all[i].where >> all[i].nomer;
+		cin >> all[i].whenTime;
+		char temp[20] = "";
+		strcpy_s(temp, all[i].whenTime);
+		all[i].when = ((temp[0] - '0') * 10 + (temp[1] - '0')) * 60 + (temp[3] - '0') * 10 + (temp[4] - '0');
+	}
+	cout << '\n';
+	sortTrain(all);
+	for (int i = 0; i < N; i++) {
+		cout<<left <<setw(20)<< all[i].where << setw(15) << all[i].nomer << setw(10) << all[i].whenTime << '\n';
+	}
+	cout << '\n';
+	char time[15];
+	cin >> time;
+	int min = ((time[0] - '0') * 10 + (time[1] - '0')) * 60 + (time[3] - '0') * 10 + (time[4] - '0');
+	for (int i = 0; i < N; i++) {
+		if (all[i].when - min > 0) {
+			cout << left << setw(20) << all[i].where << setw(15) << all[i].nomer << setw(10) << all[i].whenTime << '\n';
+		}
+	}
+	return 0;
 }
+
+/*
+Moscow 101 14:30
+SaintPetersburg 202 09:15
+Kazan 303 16:45
+Novosibirsk 404 12:00
+Yekaterinburg 505 18:30
+NizhnyNovgorod 606 10:00
+Rostov 707 15:15
+Vladivostok 808 20:00
+*/
