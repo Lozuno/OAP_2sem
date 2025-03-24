@@ -1,0 +1,3 @@
+Ivanov Ivan Ivanov	12.10.2005	Nevagno,12,43	m
+Petrov Ivan Ivanov	12.10.2005	bebebe,25,14	m
+Sankov Ivan Ivanov	12.13.2004	Kalin,26,45	m
