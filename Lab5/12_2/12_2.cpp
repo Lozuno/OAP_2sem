@@ -78,7 +78,7 @@ void readFromFile(const char* filename) {
 
     cout << left << setw(20) << "Фамилия" << setw(20) << "Имя" << setw(20) << "Отчество"
         << setw(15) << "Дата рождения" << setw(25) << "Адрес" << setw(15) << "Телефон"
-        << setw(25) << "Место работы/учебы" << setw(20) << "Должность" << endl;
+        << setw(15) << "Место работы/учебы" << setw(20) << "Должность" << endl;
 
     while (!fin.fail()) {
         fin >> entry.lastName;
@@ -123,7 +123,7 @@ void readFromFile(const char* filename) {
 
         cout << left << setw(20) << lastName << setw(20) << firstName << setw(20) << middleName
             << setw(15) << birthDate << setw(25) << address << setw(15) << phone
-            << setw(25) << workplace << setw(20) << position << endl;
+            << setw(15) << workplace << setw(20) << position << endl;
     }
     fin.close();
 }
@@ -164,7 +164,6 @@ int main() {
         cout << "0. Выход" << endl;
         cout << "Введите номер операции: ";
         cin >> choice;
-        cin.ignore();
         switch (choice) {
         case 1:
             writeToFile(filename);

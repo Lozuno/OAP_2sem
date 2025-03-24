@@ -1,1 +1,1 @@
-Ivanov	Vanya	Van	10.10.2006	Tut.net23,45	+32332141	BSTU	Prep
+Petrov	Petya	Pet	10.10.2006	Kalina23,23	+3274824	NotBSTU	Web-dev

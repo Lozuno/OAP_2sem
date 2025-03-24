@@ -83,7 +83,7 @@ int main() {
                 cout << "Контакт не найден\n";
             }
             else {
-                cout << "Контакт найден: " << contacts[index].fullName << "\n";
+                cout << "Контакт найден: " << index+1<< "\n";
             }
             break;
         }

@@ -25,7 +25,6 @@ void writeToFile(const char* filename) {
     char gender;
 
     cout << "Введите фамилию: ";
-    cin.ignore();
     cin >> lastName;
     strncpy_s(citizen.lastName, lastName, sizeof(citizen.lastName) - 1);
     fout << citizen.lastName << "\t";

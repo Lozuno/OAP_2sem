@@ -111,7 +111,7 @@ int main() {
                 cout << "Гость не найден\n";
             }
             else {
-                cout << "Гость номер: " << index << "\n";
+                cout << "Гость номер: " << index+1 << "\n";
             }
             break;
         }
