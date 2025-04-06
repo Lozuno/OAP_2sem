@@ -31,6 +31,7 @@ int main()
 		cout << "7 - Поменять stack" << endl;
 		cout << "8 - Сформировать новый Stack из одинаковых элементов" << endl;
 		cout << "9 - Удалить первый повторяющийся элемент стека" << endl;
+		cout << "10 - Объеденить в стек без повторяющихся элементов" << endl;
 		cin >> choice;
 		switch (choice)
 		{
@@ -88,6 +89,17 @@ int main()
 		case 9: {
 			removeFirstDuplicate(myStk);
 			break;
+		}
+		case 10: {
+			Stack* res = NULL;
+			if (k) {
+				stack2 = myStk;
+			}
+			else {
+				stack1 = myStk;
+			}
+			delStacks(stack1, stack2, res);
+			show(res);
 		}
 		case 0: return 0; break;
 		}

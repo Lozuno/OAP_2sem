@@ -113,14 +113,19 @@ void fuseStack(Stack*& stack1, Stack*& stack2, Stack*& resultStack) {
 	Stack* temp2 = NULL;
 	Stack* temp = NULL;
 	while (stack2 != NULL) {
-		push(pop(stack2), temp);
+		int buf=pop(stack2);
+		push(buf, temp);
+		push(buf, temp2);
+	}
+	while (temp2 != NULL) {
+		push(pop(temp2), stack2);
 	}
 	while (stack1 != NULL) {
 		int value = pop(stack1);
 		push(value, temp1);  
 
-		while (stack2 != NULL) {
-			int value2 = pop(stack2);
+		while (temp != NULL) {
+			int value2 = pop(temp);
 
 			if (value2 == value) {
 				push(value, resultStack);
@@ -129,7 +134,7 @@ void fuseStack(Stack*& stack1, Stack*& stack2, Stack*& resultStack) {
 			push(value2, temp2);
 		}
 		while (temp2 != NULL) {
-			push(pop(temp2), stack2);
+			push(pop(temp2), temp);
 		}
 	}
 
@@ -175,24 +180,50 @@ void removeFirstDuplicate(Stack*& myStk) {
 	}
 	cout << "Повторяющихся элементов нет" << endl;
 }
-void delStacks(Stack*& stack1,Stack*& stack2) {
-	Stack* temp1 = NULL;
-	Stack* temp2 = NULL;
-	Stack* res = NULL;
-	bool found = false;
+void remDupl(Stack*& stack1,Stack*& same, Stack*& res){
+	Stack* temp = NULL;
+	Stack* buftemp = NULL;
+	Stack* res1 = NULL;
 	while (stack1 != NULL) {
-		int value1 = pop(stack1);
-		while (stack2 != NULL) {
-			int value2 = pop(stack2);
-			if (value1 == value2) {
-				found = true;
+		int buf = pop(stack1);
+		push(buf, temp);
+		push(buf, res1);
+	}
+	while (res1 != NULL) {
+		push(pop(res1), stack1);
+	}
+	while (same != NULL) {
+		int buf = pop(same);
+		push(buf, buftemp);
+		while (temp != NULL) {
+			int value1 = pop(temp);
+			if (value1 == buf) {
 				break;
 			}
-			push(value2, temp2);
+			push(value1, res1);
 		}
-		if (!found) {
-			push(value1,res)
+		while (res1 != NULL) {
+			push(pop(res1), temp);
 		}
+	}
+	while (temp != NULL) {
+		push(pop(temp), res);
+	}
+	while (buftemp != NULL) {
+		push(pop(buftemp), same);
+	}
+}
+void delStacks(Stack*& stack1,Stack*& stack2, Stack*& res) {
+	Stack* same = NULL;
+	Stack* res1 = NULL;
+	fuseStack(stack1, stack2, same);
+	remDupl(stack1, same, res1);
+	while (res1 != NULL) {
+		push(pop(res1), res);
+	}
+	remDupl(stack2, same, res1);
+	while (res1 != NULL) {
+		push(pop(res1), res);
 	}
 }
 void clear(Stack*& myStk) {

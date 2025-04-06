@@ -13,3 +13,4 @@ void checkDiapason(Stack*& myStack, int min, int max);
 void clear(Stack*& myStk);
 void fuseStack(Stack*& stack1, Stack*& stack2, Stack*& resultStack);
 void removeFirstDuplicate(Stack*& myStk);
+void delStacks(Stack*& stack1, Stack*& stack2, Stack*& res);
