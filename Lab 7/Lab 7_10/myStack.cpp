@@ -90,12 +90,12 @@ void checkDiapason(Stack*& myStack, int min, int max) {
 	bool flag = false;
 	while (myStack != NULL) {
 		buf = pop(myStack);
+		k++;
 		push(buf, bufStack);
 		if (min <= buf && buf <= max) {
 			flag = true;
 			break;
 		}
-		k++;
 	}
 	while (bufStack != NULL) {
 		push(pop(bufStack), myStack);
@@ -166,14 +166,14 @@ void removeFirstDuplicate(Stack*& myStk) {
 			push(pop(temp), tempStack);
 		}
 		if (found) {
+			push(value, tempStack);
 			while (tempStack != NULL) {
 				push(pop(tempStack), myStk);
 			}
 			cout << "Удалён элемент: " << removedValue << endl;
 			return;
 		}
-
-		push(value, tempStack); 
+		push(value, tempStack);
 	}
 	while (tempStack != NULL) {
 		push(pop(tempStack), myStk);

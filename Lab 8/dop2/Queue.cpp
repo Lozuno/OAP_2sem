@@ -1,4 +1,5 @@
 #include "Queue.h"
+
 using namespace std;
 
 void clear(Queue* q) {
@@ -21,7 +22,7 @@ bool isEmpty(Queue* q) {
 }
 
 bool isFull(Queue* q) {
-    return q->first == q->mas && q->last == (q->mas + MAXSIZE - 1);
+    return q->first == q->mas && q->last == (q->mas + MAXSIZE-1);
 }
 
 A top(Queue* q) {
@@ -73,7 +74,7 @@ void print(Queue* q) {
 void copyQueue(Queue* q1, Queue* q2) {
     Queue* temp = new Queue;
     while (!isEmpty(q1)) {
-        A buf = pop(q1);
+        A buf=pop(q1);
         push(buf, temp);
         push(buf, q2);
     }
@@ -124,7 +125,7 @@ void moveMax(Queue* q) {
         }
         push(buf, temp);
     }
-    while (!isEmpty(temp)) {
+    while (!isEmpty(temp)){
         push(pop(temp), q);
     }
     A buf = top(q);

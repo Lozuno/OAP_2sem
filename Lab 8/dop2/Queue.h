@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include <fstream>
 #define MAXSIZE 1000
 #define A float
 using namespace std;
