@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{0d352627-095c-4ce9-aece-9a5474c23498}</ProjectGuid>
-    <RootNamespace>olimp</RootNamespace>
+    <ProjectGuid>{a5b729c3-ba0b-4cde-89d8-7ca45ee459a3}</ProjectGuid>
+    <RootNamespace>dop3</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="olimp.cpp" />
+    <ClCompile Include="dop3.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
