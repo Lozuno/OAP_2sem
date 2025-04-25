@@ -1,38 +1,39 @@
 ﻿#include <iostream>
+#include <climits>
 using namespace std;
 
 struct Tree {
     int key;         // ключ
+    int a, b, c;     // три целых числа
     Tree* Left, * Right;
 };
 
-Tree* makeTree(Tree* Root);       // Создание дерева
-Tree* list(int i);                // Создание нового элемента
-Tree* insertElem(Tree* Root, int key);  // Добавление нового элемента
-Tree* search(Tree* n, int key);   // Поиск элемента по ключу 
-Tree* delet(Tree* Root, int key); // Удаление элемента по ключу
-void view(Tree* t, int level);    // Вывод дерева 
-void delAll(Tree* t);             // Очистка дерева
-int sumTreeNodes(Tree* p1);
-int sumLeafs(Tree* p1);
-int countRightLeaves(Tree* p1);
-Tree* Root = NULL; // указатель на корень
+// Прототипы функций
+Tree* makeTree(Tree* Root);
+Tree* list(int i, int a, int b, int c);
+Tree* insertElem(Tree* Root, int key, int a, int b, int c);
+Tree* search(Tree* n, int key);
+Tree* delet(Tree* Root, int key);
+void view(Tree* t, int level);
+void delAll(Tree* t);
+Tree* findMinSumNode(Tree* root);
+Tree* deleteMinSumNode(Tree* root);
+
+Tree* Root = NULL;
 
 int main() {
     setlocale(0, "Russian");
-    int key, choice;
+    int key, choice, a, b, c;
 
     for (;;) {
         cout << "1 - создание дерева\n";
         cout << "2 - добавление элемента\n";
         cout << "3 - поиск по ключу\n";
-        cout << "4 - удаление элемента\n";
+        cout << "4 - удаление элемента по ключу\n";
         cout << "5 - вывод дерева\n";
         cout << "6 - очистка дерева\n";
         cout << "7 - выход\n";
-        cout << "8 - сумма дерева\n";
-        cout << "9 - сумма листьев дерева\n";
-        cout << "10 - вывод количества листьев дерева, которые являются правыми дочерними вершинами\n";
+        cout << "8 - удалить вершину с минимальной суммой (a+b+c)\n";
         cout << "ваш выбор?\n";
         cin >> choice;
         cout << "\n";
@@ -45,7 +46,9 @@ int main() {
         case 2: {
             cout << "\nВведите ключ: ";
             cin >> key;
-            insertElem(Root, key);
+            cout << "Введите три числа через пробел: ";
+            cin >> a >> b >> c;
+            insertElem(Root, key, a, b, c);
             break;
         }
         case 3: {
@@ -53,7 +56,8 @@ int main() {
             cin >> key;
             Tree* rc = search(Root, key);
             if (rc)
-                cout << "Найден элемент с ключом: " << rc->key << endl;
+                cout << "Найден элемент: ключ=" << rc->key << ", значения="
+                << rc->a << "," << rc->b << "," << rc->c << endl;
             break;
         }
         case 4: {
@@ -78,29 +82,10 @@ int main() {
         }
         case 7:
             exit(0);
-        case 8: { 
+        case 8: {
             if (Root) {
-                int totalSum = sumTreeNodes(Root);
-                cout << "Сумма всех вершин дерева: " << totalSum << endl;
-            }
-            else {
-                cout << "Дерево пустое\n";
-            }
-            break;
-        }
-        case 9: {
-            if (Root) {
-                int totalSum = sumLeafs(Root);
-                cout << "Сумма всех листьев дерева: " << totalSum << endl;
-            }
-            else {
-                cout << "Дерево пустое\n";
-            }
-        }
-        case 10: {
-            if (Root) {
-                int rightLeavesCount = countRightLeaves(Root);
-                cout << "Количество правых листьев: " << rightLeavesCount << endl;
+                Root = deleteMinSumNode(Root);
+                cout << "Вершина с минимальной суммой удалена\n";
             }
             else {
                 cout << "Дерево пустое\n";
@@ -112,30 +97,37 @@ int main() {
 }
 
 Tree* makeTree(Tree* Root) {
-    int key;
+    int key, a, b, c;
     cout << "Конец ввода - отрицательное число\n\n";
     if (Root == NULL) {
         cout << "Введите ключ корня: ";
         cin >> key;
-        Root = list(key);
+        cout << "Введите три числа через пробел: ";
+        cin >> a >> b >> c;
+        Root = list(key, a, b, c);
     }
     while (1) {
         cout << "\nВведите ключ: ";
         cin >> key;
         if (key < 0) break;
-        insertElem(Root, key);
+        cout << "Введите три числа через пробел: ";
+        cin >> a >> b >> c;
+        insertElem(Root, key, a, b, c);
     }
     return Root;
 }
 
-Tree* list(int i) {
+Tree* list(int i, int a, int b, int c) {
     Tree* t = new Tree;
     t->key = i;
+    t->a = a;
+    t->b = b;
+    t->c = c;
     t->Left = t->Right = NULL;
     return t;
 }
 
-Tree* insertElem(Tree* t, int key) {
+Tree* insertElem(Tree* t, int key, int a, int b, int c) {
     Tree* Prev = nullptr;
     int find = 0;
     while (t && !find) {
@@ -148,7 +140,7 @@ Tree* insertElem(Tree* t, int key) {
             t = t->Right;
     }
     if (!find) {
-        t = list(key);
+        t = list(key, a, b, c);
         if (key < Prev->key)
             Prev->Left = t;
         else
@@ -217,7 +209,7 @@ void view(Tree* t, int level) {
         view(t->Right, level + 1);
         for (int i = 0; i < level; i++)
             cout << "   ";
-        cout << t->key << endl;
+        cout << t->key << " (" << t->a << "," << t->b << "," << t->c << ")" << endl;
         view(t->Left, level + 1);
     }
 }
@@ -229,27 +221,38 @@ void delAll(Tree* t) {
         delete t;
     }
 }
-int sumTreeNodes(Tree* p1) {
-    if (p1 == nullptr) {
-        return 0;
+
+Tree* findMinSumNode(Tree* root) {
+    if (root == NULL) return NULL;
+
+    Tree* minNode = root;
+    int minSum = root->a + root->b + root->c;
+    Tree* leftMin = findMinSumNode(root->Left);
+    if (leftMin != NULL) {
+        int leftSum = leftMin->a + leftMin->b + leftMin->c;
+        if (leftSum < minSum) {
+            minSum = leftSum;
+            minNode = leftMin;
+        }
     }
-    return p1->key + sumTreeNodes(p1->Left) + sumTreeNodes(p1->Right);
+    Tree* rightMin = findMinSumNode(root->Right);
+    if (rightMin != NULL) {
+        int rightSum = rightMin->a + rightMin->b + rightMin->c;
+        if (rightSum < minSum) {
+            minSum = rightSum;
+            minNode = rightMin;
+        }
+    }
+
+    return minNode;
 }
-int sumLeafs(Tree* p1) {
-    if (p1->Left == nullptr && p1->Right == nullptr) {
-        return p1->key;
+
+Tree* deleteMinSumNode(Tree* root) {
+    if (root == NULL) return NULL;
+
+    Tree* minNode = findMinSumNode(root);
+    if (minNode != NULL) {
+        return delet(root, minNode->key);
     }
-    return sumLeafs(p1->Left) + sumLeafs(p1->Right);
-}
-int countRightLeaves(Tree* p1) {
-    if (p1 == nullptr) {
-        return 0;
-    }
-    int count = 0;
-    if (p1->Right != nullptr && p1->Right->Left == nullptr && p1->Right->Right == nullptr) {
-        count++;
-    }
-    count += countRightLeaves(p1->Left);
-    count += countRightLeaves(p1->Right);
-    return count;
+    return root;
 }
