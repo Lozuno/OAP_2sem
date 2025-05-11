@@ -24,6 +24,8 @@ int menu(void)
 	cout << "4. Поиск" << endl;
 	cout << "5. Ввод в начало" << endl;
 	cout << "6. Добавление другого списка в конец" << endl;
+	cout << "7. Запись в файл" << endl;
+	cout << "8. Считывание из файла" << endl;
 	cout << endl;
 	do
 	{
@@ -55,6 +57,59 @@ void insert(Address* e, Address** phead, Address** plast) //Добавление
 		*plast = e;
 	}
 }
+//-----------------------------------------------------------
+void writeToFile(Address** phead)       //Запись в файл
+{
+	struct Address* t = *phead;
+	FILE* fp;
+	errno_t err = fopen_s(&fp, "mlist", "wb");
+	if (err)
+	{
+		cerr << "Файл не открывается" << endl;
+		exit(1);
+	}
+	cout << "Сохранение в файл" << endl;
+	while (t)
+	{
+		fwrite(t, sizeof(struct Address), 1, fp);
+		t = t->next;
+	}
+	fclose(fp);
+}
+//-----------------------------------------------------------
+void readFromFile(Address** phead, Address** plast)   //Считывание из файла
+{
+	struct Address* t;
+	FILE* fp;
+	errno_t err = fopen_s(&fp, "mlist", "rb");
+	if (err)
+	{
+		cerr << "Файл не открывается" << endl;
+		exit(1);
+	}
+	while (*phead)
+	{
+		*plast = (*phead)->next;
+		delete* phead;
+		*phead = *plast;
+	}
+	*phead = *plast = NULL;
+	cout << "Загрузка из файла" << endl;
+	while (!feof(fp))
+	{
+		t = new Address();
+		if (!t)
+		{
+			cerr << "Ошибка выделения памяти" << endl;
+			return;
+		}
+		if (1 != fread(t, sizeof(struct Address), 1, fp)) break;
+		insert(t, phead, plast);
+	}
+	fclose(fp);
+}
+
+
 //-----------------------------------------------------------
 void addXBegin(Address* e, Address** phead, Address** plast) {//Добавление в начало списка
 	Address* p = *phead;
@@ -104,13 +159,13 @@ void addLEnd(Address** phead, Address** plast) {
 
 	Address* headL = NULL, * lastL = NULL;
 	for (int i = 0; i < n; i++) {
-		
+
 		insert(setElement(), &headL, &lastL);
 	}
 
 	Address* curr = headL;
-	while (curr!= NULL) {
-		
+	while (curr != NULL) {
+
 		Address* copy = new Address();
 		strcpy_s(copy->name, curr->name);
 		strcpy_s(copy->city, curr->city);
@@ -119,15 +174,15 @@ void addLEnd(Address** phead, Address** plast) {
 
 		insert(copy, phead, plast);
 
-		curr= curr->next;
+		curr = curr->next;
 	}
 
-	
+
 	curr = headL;
 	while (curr != NULL) {
 		Address* temp = curr;
 		curr = curr->next;
-		delete temp; 
+		delete temp;
 	}
 }
 //-----------------------------------------------------------
@@ -209,7 +264,7 @@ int main(void)
 			delet(dname, &head, &last);
 			break;
 		}
-			  
+
 		case 3: {
 			outputList(&head, &last);
 			break;
@@ -224,66 +279,23 @@ int main(void)
 			break;
 		}
 		case 5: {
-			addXBegin(setElement(),  &head, &last);
+			addXBegin(setElement(), &head, &last);
 			break;
 		}
 		case 6: {
 			addLEnd(&head, &last);
 			break;
 		}
+		case 7: {
+			writeToFile(&head);
+			break;
+		}
+		case 8: {
+			readFromFile(&head, &last);
+			break;
+		}
 		default: exit(1);
 		}
 	}
 	return 0;
-}
-//-----------------------------------------------------------
-void writeToFile(Address** phead)       //Запись в файл
-{
-	struct Address* t = *phead;
-	FILE* fp;
-	errno_t err = fopen_s(&fp, "mlist", "wb");
-	if (err)
-	{
-		cerr << "Файл не открывается" << endl;
-		exit(1);
-	}
-	cout << "Сохранение в файл" << endl;
-	while (t)
-	{
-		fwrite(t, sizeof(struct Address), 1, fp);
-		t = t->next;
-	}
-	fclose(fp);
-}
-//-----------------------------------------------------------
-void readFromFile(Address** phead, Address** plast)   //Считывание из файла
-{
-	struct Address* t;
-	FILE* fp;
-	errno_t err = fopen_s(&fp, "mlist", "rb");
-	if (err)
-	{
-		cerr << "Файл не открывается" << endl;
-		exit(1);
-	}
-	while (*phead)
-	{
-		*plast = (*phead)->next;
-		delete* phead;
-		*phead = *plast;
-	}
-	*phead = *plast = NULL;
-	cout << "Загрузка из файла" << endl;
-	while (!feof(fp))
-	{
-		t = new Address();
-		if (!t)
-		{
-			cerr << "Ошибка выделения памяти" << endl;
-			return;
-		}
-		if (1 != fread(t, sizeof(struct Address), 1, fp)) break;
-		insert(t, phead, plast);
-	}
-	fclose(fp);
 }

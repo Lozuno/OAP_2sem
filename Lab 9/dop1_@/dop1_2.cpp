@@ -86,4 +86,15 @@ int main() {
     Object carList = Create();
     showMenu(carList);
     return 0;
-}
+}/*
+1 Toyota	Red	123456	2020-05-15	Sedan	2023-04-01	Ivanov
+1 BMW	Black	234567	2019-07-20	SUV	2022-11-30	Petrov
+1 Mercedes	White	345678	2018-03-10	Coupe	2021-12-05	Sidorov
+1 Audi	Blue	456789	2021-01-25	Hatchback	2023-06-15	Smirnov
+1 Volkswagen	Grey	567890	2017-08-05	Sedan	2021-09-22	Kuznetsov
+1 Ford	Green	678901	2022-11-02	Universal	2023-07-10	Nikolaev
+1 Kia	Yellow	789012	2020-09-17	Sedan	2023-02-28	Popov
+1 Nissan	Silver	890123	2016-12-11	Hatchback	2020-05-13	Orlov
+1 Hyundai	Orange	901234	2015-05-22	SUV	2022-10-25	Vasiliev
+
+ */

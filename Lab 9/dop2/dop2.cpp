@@ -46,7 +46,7 @@ void inputStudent(Student*& head, Student*& tail) {
     Student* newStudent = new Student();
 
     cout << "Введите фамилию: ";
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin.ignore(cin.rdbuf()->in_avail());
     cin.getline(newStudent->lastName, MAX);
 
     cout << "Введите имя: ";
@@ -241,7 +241,7 @@ void deleteStudents(Student*& head) {
 }
 
 int main() {
-    setlocale(0, "rus");
+    setlocale(LC_ALL, "rus");
     Student* head = nullptr;
     Student* tail = nullptr;
 

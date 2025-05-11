@@ -96,6 +96,7 @@ int main() {
             else {
                 cout << "Дерево пустое\n";
             }
+            break;
         }
         case 10: {
             if (Root) {
@@ -236,6 +237,9 @@ int sumTreeNodes(Tree* p1) {
     return p1->key + sumTreeNodes(p1->Left) + sumTreeNodes(p1->Right);
 }
 int sumLeafs(Tree* p1) {
+    if (p1 == nullptr) {
+        return 0;
+    }
     if (p1->Left == nullptr && p1->Right == nullptr) {
         return p1->key;
     }
