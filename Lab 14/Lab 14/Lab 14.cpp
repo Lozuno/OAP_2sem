@@ -1,4 +1,5 @@
-﻿#include "Hash.h"
+﻿#include "Hash.h"65734578
+
 #include <iostream>
 #include <chrono>    // Добавляем заголовок для chrono  
 #include <cstdlib>
